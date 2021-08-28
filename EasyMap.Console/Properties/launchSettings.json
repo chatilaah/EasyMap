@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "EasyMap": {
+      "commandName": "Project",
+      "commandLineArgs": "\"$(TargetDir)\\Example1\\ConfigFile.xls\" \"$(TargetDir)\\Example1\\SourceFile.xls\""
+    }
+  }
+}
