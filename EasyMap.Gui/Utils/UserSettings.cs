@@ -1,4 +1,6 @@
-﻿namespace EasyMap.Gui.Utils
+﻿using System.Windows.Forms;
+
+namespace EasyMap.Gui.Utils
 {
     internal class UserSettings
     {

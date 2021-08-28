@@ -10,13 +10,4 @@
     <ProjectReference Include="..\EasyMap\EasyMap.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Example1\ConfigFile.xls">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Example1\SourceFile.xls">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

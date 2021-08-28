@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="FrmTask.cs" />
     <Compile Update="FrmRunner.cs">
       <SubType>Form</SubType>
     </Compile>

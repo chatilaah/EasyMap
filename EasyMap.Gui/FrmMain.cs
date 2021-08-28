@@ -70,7 +70,7 @@ namespace EasyMap.Gui
                 return;
             }
 
-            LoadConfig(ofd.FileName);
+            LoadConfigFile(ofd.FileName);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -148,13 +148,11 @@ namespace EasyMap.Gui
                 {
                     Translator translator = new(DataSourceInfo, Config);
 
-                    if (!translator.PerformMap())
+                    if (!translator.SaveToFile(sfd.FileName))
                     {
                         MessageBox.Show("Mapping failure", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-
-                    translator.SaveToFile(sfd.FileName);
 
                     int retryCount = 0;
 
@@ -184,7 +182,7 @@ namespace EasyMap.Gui
 
         private void consoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new FrmRunner { ExecutablePath = Path.Combine(Application.StartupPath, "EasyMap.exe"), CommandLineArgs = "\"Config-file-path\" \"Datasource-file-path\"" }.ShowDialog();
+            new FrmRunner { ExecutablePath = Path.Combine(Application.StartupPath, "EasyMap.Console.exe"), CommandLineArgs = "\"Config-file-path\" \"Datasource-file-path\"" }.ShowDialog();
         }
 
         private void openExampleFolderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -210,17 +208,45 @@ namespace EasyMap.Gui
             throw new NotImplementedException("This functionality is not implemented yet.");
         }
 
+        private void DoJob(int a)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                System.Threading.Thread.Sleep(500);
+                System.Console.Write("Hello world!\n");
+            }
+        }
+
+        private void uploadToSQLDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Translator translator = new(DataSourceInfo, Config);
+
+            if (!translator.PrepareBuffer())
+            {
+                MessageBox.Show("Failed to prepare the buffer!");
+                return;
+            }
+
+            new FrmTask<string>
+            {
+                CanCancel = false,
+                Param = Config.ConnectionString,
+                Job = translator.UploadToSql
+            }.ShowDialog();
+        }
+
         #endregion
 
-        private void LoadConfig(string filename)
+        private void LoadConfigFile(string filename)
         {
+            listView1.Items.Clear();
+
             try
             {
                 Config = new ConfigModel(filename);
                 UserSettings.AddRecentItem(filename);
                 configToolStripMenuItem.Enabled = true;
 
-                listView1.Items.Clear();
 
                 foreach (var i in Config.TranslateFields)
                 {
@@ -279,7 +305,7 @@ namespace EasyMap.Gui
 
                     item.Click += delegate (object sender, EventArgs e)
                     {
-                        LoadConfig(i);
+                        LoadConfigFile(i);
                     };
 
                     recentsToolStripMenuItem.DropDownItems.Add(item);

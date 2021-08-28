@@ -59,15 +59,5 @@ namespace EasyMap.Gui.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap msoffice_excel {
-            get {
-                object obj = ResourceManager.GetObject("msoffice_excel", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

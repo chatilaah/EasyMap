@@ -8,6 +8,7 @@
 ///     28 July 2021
 ///     
 /// </summary>
+using EasyMap.Gui.Utils;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -45,71 +46,85 @@ namespace EasyMap
 
         #endregion
 
-        public bool PerformMap()
+        public bool PrepareBuffer()
         {
             var sheet = _dsInfo.File.Sheet[0];
-
             int srcRowCount = sheet.Rows[0].ItemArray.Length;
 
             if (srcRowCount != _config.TranslateFields.Count)
             {
                 LastError = TranslatorLastError.RowsDontMatch;
-
                 return false;
             }
 
-            // ==============================================================================
-            //
-            // Prepare the new header
-            //
-
-            string[] header = new string[srcRowCount];
+            Buffer = string.Empty;
 
             for (int i = 0; i < srcRowCount; i++)
             {
-                var current = sheet.Rows[0].ItemArray[i].ToString();
-                var replacement = _config.TranslateFields[current].Replacement;
+                var len = sheet.Rows[i].ItemArray.Length;
 
-                header[i] = replacement;
-            }
-
-            // ==============================================================================
-            //
-            // Setup the buffer.
-            //
-
-            _buffer = string.Empty;
-
-            for (int i = 0; i < srcRowCount; i++)
-            {
-                if (i == 0)
+                for (int j = 0; j < len; j++)
                 {
-                    for (int j = 0; j < header.Length; j++)
-                    {
-                        _buffer += $"{header[j]},";
-                    }
-                }
-                else
-                {
-                    for (int j = 0; j < sheet.Rows[i].ItemArray.Length; j++)
-                    {
-                        var current = sheet.Rows[i].ItemArray[j].ToString();
+                    var current = sheet.Rows[i].ItemArray[j].ToString();
 
-                        _buffer += $"{current},";
+                    Buffer += (i == 0) ?
+                        $"{_config.TranslateFields[current].Replacement}" :
+                        $"{current}";
+
+                    if (j < len - 1)
+                    {
+                        Buffer += ",";
                     }
                 }
 
-                _buffer = _buffer.Remove(_buffer.Length - 1);
-                _buffer += "\n";
+                Buffer += Environment.NewLine;
             }
-
 
             return true;
         }
 
-        public void SaveToFile(string filename)
+        public bool SaveToFile(string filename)
         {
+            if (string.IsNullOrEmpty(Buffer))
+            {
+                if (PrepareBuffer() == false)
+                {
+                    return false;
+                }
+            }
+
             File.WriteAllText(filename, Buffer);
+            return true;
+        }
+
+        public void UploadToSql(string connectionString)
+        {
+            System.Console.Write("Allocating necessary object...");
+            var s = new MssqlHelper(); System.Console.Write("ok.\n");
+
+            System.Console.Write("Connecting to the SQL server...");
+            if (!s.Connect(connectionString))
+            {
+                System.Console.Write("fail.\n");
+                throw new Exception(s.LastError);
+            }
+            System.Console.Write("ok.\n");
+
+
+            int index = -1;
+
+            foreach (var line in Buffer.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                index += 1;
+
+                if (index == 0)
+                    continue;
+
+                var sql = string.Format(_config.InsertQuery, line);
+
+                System.Console.Write($"{sql}\n");
+                s.Insert(sql);
+            }
         }
     }
 }
