@@ -317,5 +317,15 @@ namespace EasyMap.Gui
                 MessageBox.Show($"The folder \"{folder}\" doesn't appear to exist on disk. Re-installing the program may fix the problem.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
+        private void visitOnGitHubToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://github.com/chatilaah/EasyMap");
+        }
+
+        private void excel972003FileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException("This functionality is not implemented yet.");
+        }
     }
 }

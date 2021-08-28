@@ -42,6 +42,8 @@ namespace EasyMap.Gui
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.openExampleFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cSVFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,8 +57,9 @@ namespace EasyMap.Gui
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.openExampleFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.visitOnGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.excel972003FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -156,6 +159,18 @@ namespace EasyMap.Gui
             this.consoleToolStripMenuItem.Text = "Console";
             this.consoleToolStripMenuItem.Click += new System.EventHandler(this.consoleToolStripMenuItem_Click);
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(182, 6);
+            // 
+            // openExampleFolderToolStripMenuItem
+            // 
+            this.openExampleFolderToolStripMenuItem.Name = "openExampleFolderToolStripMenuItem";
+            this.openExampleFolderToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.openExampleFolderToolStripMenuItem.Text = "Open Example folder";
+            this.openExampleFolderToolStripMenuItem.Click += new System.EventHandler(this.openExampleFolderToolStripMenuItem_Click);
+            // 
             // outputToolStripMenuItem
             // 
             this.outputToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -167,7 +182,8 @@ namespace EasyMap.Gui
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cSVFileToolStripMenuItem});
+            this.cSVFileToolStripMenuItem,
+            this.excel972003FileToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportToolStripMenuItem.Text = "Export";
@@ -182,7 +198,9 @@ namespace EasyMap.Gui
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutEasyMapGUIToolStripMenuItem});
+            this.aboutEasyMapGUIToolStripMenuItem,
+            this.toolStripSeparator5,
+            this.visitOnGitHubToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
@@ -257,17 +275,24 @@ namespace EasyMap.Gui
             this.columnHeader3.Text = "Comment";
             this.columnHeader3.Width = 100;
             // 
-            // toolStripSeparator4
+            // toolStripSeparator5
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(182, 6);
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(185, 6);
             // 
-            // openExampleFolderToolStripMenuItem
+            // visitOnGitHubToolStripMenuItem
             // 
-            this.openExampleFolderToolStripMenuItem.Name = "openExampleFolderToolStripMenuItem";
-            this.openExampleFolderToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.openExampleFolderToolStripMenuItem.Text = "Open Example folder";
-            this.openExampleFolderToolStripMenuItem.Click += new System.EventHandler(this.openExampleFolderToolStripMenuItem_Click);
+            this.visitOnGitHubToolStripMenuItem.Name = "visitOnGitHubToolStripMenuItem";
+            this.visitOnGitHubToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.visitOnGitHubToolStripMenuItem.Text = "Visit on GitHub";
+            this.visitOnGitHubToolStripMenuItem.Click += new System.EventHandler(this.visitOnGitHubToolStripMenuItem_Click);
+            // 
+            // excel972003FileToolStripMenuItem
+            // 
+            this.excel972003FileToolStripMenuItem.Name = "excel972003FileToolStripMenuItem";
+            this.excel972003FileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.excel972003FileToolStripMenuItem.Text = "Excel 97-2003 File...";
+            this.excel972003FileToolStripMenuItem.Click += new System.EventHandler(this.excel972003FileToolStripMenuItem_Click);
             // 
             // FrmMain
             // 
@@ -323,6 +348,9 @@ namespace EasyMap.Gui
         private System.Windows.Forms.ToolStripMenuItem consoleToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem openExampleFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem visitOnGitHubToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem excel972003FileToolStripMenuItem;
     }
 }
 
