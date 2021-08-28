@@ -51,35 +51,6 @@ namespace EasyMap.Gui
 
         #endregion
 
-        private void LoadConfig(string filename)
-        {
-            try
-            {
-                Config = new ConfigModel(filename);
-                UserSettings.AddRecentItem(filename);
-                configToolStripMenuItem.Enabled = true;
-
-                listView1.Items.Clear();
-
-                foreach (var i in Config.TranslateFields)
-                {
-                    var lvItem = new ListViewItem
-                    {
-                        Text = i.Key
-                    };
-
-                    lvItem.SubItems.Add(i.Value.Replacement);
-                    lvItem.SubItems.Add(i.Value.Comment);
-
-                    listView1.Items.Add(lvItem);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         #region Menu bar
 
         private void aboutEasyMapGUIToolStripMenuItem_Click(object sender, EventArgs e)
@@ -159,11 +130,115 @@ namespace EasyMap.Gui
             new FrmConfig { ConfigModel = Config }.ShowDialog();
         }
 
+        private void alwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UserSettings.AlwaysOnTop = !UserSettings.AlwaysOnTop;
+        }
+
+        private void cSVFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var sfd = new SaveFileDialog
+            {
+                Filter = "Comma-separated Value File|*.csv"
+            };
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Translator translator = new(DataSourceInfo, Config);
+
+                    if (!translator.PerformMap())
+                    {
+                        MessageBox.Show("Mapping failure", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    translator.SaveToFile(sfd.FileName);
+
+                    int retryCount = 0;
+
+                    do
+                    {
+                        if (retryCount == 5)
+                        {
+                            return;
+                        }
+
+                        Thread.Sleep(500);
+                        retryCount += 1;
+
+                    } while (!File.Exists(sfd.FileName));
+
+                    // Temporarily disable the focus.
+                    TopMost = false;
+
+                    Process.Start("explorer.exe", $"/select,\"{sfd.FileName}\"");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void consoleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FrmRunner { ExecutablePath = Path.Combine(Application.StartupPath, "EasyMap.exe"), CommandLineArgs = "\"Config-file-path\" \"Datasource-file-path\"" }.ShowDialog();
+        }
+
+        private void openExampleFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var folder = Path.Combine(Application.StartupPath, "Example1");
+            if (Directory.Exists(folder))
+            {
+                Process.Start("explorer.exe", folder);
+            }
+            else
+            {
+                MessageBox.Show($"The folder \"{folder}\" doesn't appear to exist on disk. Re-installing the program may fix the problem.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void visitOnGitHubToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://github.com/chatilaah/EasyMap");
+        }
+
+        private void excel972003FileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException("This functionality is not implemented yet.");
+        }
+
         #endregion
 
-        private void FrmMain_Load(object sender, EventArgs e)
+        private void LoadConfig(string filename)
         {
-            InvalidateProgSettings(setWindowSize: true);
+            try
+            {
+                Config = new ConfigModel(filename);
+                UserSettings.AddRecentItem(filename);
+                configToolStripMenuItem.Enabled = true;
+
+                listView1.Items.Clear();
+
+                foreach (var i in Config.TranslateFields)
+                {
+                    var lvItem = new ListViewItem
+                    {
+                        Text = i.Key
+                    };
+
+                    lvItem.SubItems.Add(i.Value.Replacement);
+                    lvItem.SubItems.Add(i.Value.Comment);
+
+                    listView1.Items.Add(lvItem);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void InvalidateProgSettings(bool setWindowSize = false)
@@ -234,9 +309,9 @@ namespace EasyMap.Gui
             }
         }
 
-        private void alwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FrmMain_Load(object sender, EventArgs e)
         {
-            UserSettings.AlwaysOnTop = !UserSettings.AlwaysOnTop;
+            InvalidateProgSettings(setWindowSize: true);
         }
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -248,84 +323,9 @@ namespace EasyMap.Gui
             UserSettings.FrmMainCommentColWidth = columnHeader3.Width;
         }
 
-        private void cSVFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var sfd = new SaveFileDialog
-            {
-                Filter = "Comma-separated Value File|*.csv"
-            };
-
-            if (sfd.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    Translator translator = new(DataSourceInfo, Config);
-
-                    if (!translator.PerformMap())
-                    {
-                        MessageBox.Show("Mapping failure", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    translator.SaveToFile(sfd.FileName);
-
-                    int retryCount = 0;
-
-                    do
-                    {
-                        if (retryCount == 5)
-                        {
-                            return;
-                        }
-
-                        Thread.Sleep(500);
-                        retryCount += 1;
-
-                    } while (!File.Exists(sfd.FileName));
-
-                    // Temporarily disable the focus.
-                    TopMost = false;
-
-                    Process.Start("explorer.exe", $"/select,\"{sfd.FileName}\"");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void consoleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new FrmRunner { ExecutablePath = Path.Combine(Application.StartupPath, "EasyMap.exe"), CommandLineArgs = "\"Config-file-path\" \"Datasource-file-path\"" }.ShowDialog();
-        }
-
         private void FrmMain_Activated(object sender, EventArgs e)
         {
             TopMost = UserSettings.AlwaysOnTop;
-        }
-
-        private void openExampleFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var folder = Path.Combine(Application.StartupPath, "Example1");
-            if (Directory.Exists(folder))
-            {
-                Process.Start("explorer.exe", folder);
-            }
-            else
-            {
-                MessageBox.Show($"The folder \"{folder}\" doesn't appear to exist on disk. Re-installing the program may fix the problem.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
-
-        private void visitOnGitHubToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("http://github.com/chatilaah/EasyMap");
-        }
-
-        private void excel972003FileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException("This functionality is not implemented yet.");
         }
     }
 }
