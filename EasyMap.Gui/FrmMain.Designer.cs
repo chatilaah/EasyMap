@@ -47,8 +47,11 @@ namespace EasyMap.Gui
             this.outputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cSVFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.excel972003FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutEasyMapGUIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.visitOnGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnBrowseFile = new System.Windows.Forms.Button();
@@ -57,9 +60,6 @@ namespace EasyMap.Gui
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.visitOnGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.excel972003FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -190,10 +190,18 @@ namespace EasyMap.Gui
             // 
             // cSVFileToolStripMenuItem
             // 
+            this.cSVFileToolStripMenuItem.Enabled = false;
             this.cSVFileToolStripMenuItem.Name = "cSVFileToolStripMenuItem";
-            this.cSVFileToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.cSVFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cSVFileToolStripMenuItem.Text = "CSV File...";
             this.cSVFileToolStripMenuItem.Click += new System.EventHandler(this.cSVFileToolStripMenuItem_Click);
+            // 
+            // excel972003FileToolStripMenuItem
+            // 
+            this.excel972003FileToolStripMenuItem.Name = "excel972003FileToolStripMenuItem";
+            this.excel972003FileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.excel972003FileToolStripMenuItem.Text = "Excel 97-2003 File...";
+            this.excel972003FileToolStripMenuItem.Click += new System.EventHandler(this.excel972003FileToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -211,6 +219,18 @@ namespace EasyMap.Gui
             this.aboutEasyMapGUIToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.aboutEasyMapGUIToolStripMenuItem.Text = "&About EasyMap GUI...";
             this.aboutEasyMapGUIToolStripMenuItem.Click += new System.EventHandler(this.aboutEasyMapGUIToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(185, 6);
+            // 
+            // visitOnGitHubToolStripMenuItem
+            // 
+            this.visitOnGitHubToolStripMenuItem.Name = "visitOnGitHubToolStripMenuItem";
+            this.visitOnGitHubToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.visitOnGitHubToolStripMenuItem.Text = "Visit on GitHub";
+            this.visitOnGitHubToolStripMenuItem.Click += new System.EventHandler(this.visitOnGitHubToolStripMenuItem_Click);
             // 
             // label2
             // 
@@ -274,25 +294,6 @@ namespace EasyMap.Gui
             // 
             this.columnHeader3.Text = "Comment";
             this.columnHeader3.Width = 100;
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(185, 6);
-            // 
-            // visitOnGitHubToolStripMenuItem
-            // 
-            this.visitOnGitHubToolStripMenuItem.Name = "visitOnGitHubToolStripMenuItem";
-            this.visitOnGitHubToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.visitOnGitHubToolStripMenuItem.Text = "Visit on GitHub";
-            this.visitOnGitHubToolStripMenuItem.Click += new System.EventHandler(this.visitOnGitHubToolStripMenuItem_Click);
-            // 
-            // excel972003FileToolStripMenuItem
-            // 
-            this.excel972003FileToolStripMenuItem.Name = "excel972003FileToolStripMenuItem";
-            this.excel972003FileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.excel972003FileToolStripMenuItem.Text = "Excel 97-2003 File...";
-            this.excel972003FileToolStripMenuItem.Click += new System.EventHandler(this.excel972003FileToolStripMenuItem_Click);
             // 
             // FrmMain
             // 
