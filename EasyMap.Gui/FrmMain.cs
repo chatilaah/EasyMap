@@ -15,6 +15,21 @@ namespace EasyMap.Gui
 
         private ConfigModel Config { get; set; }
 
+        private bool CanExportOrUpload
+        {
+            get { return cSVFileToolStripMenuItem.Enabled && uploadToSQLDatabaseToolStripMenuItem.Enabled; }
+            set
+            {
+                cSVFileToolStripMenuItem.Enabled = value;
+                uploadToSQLDatabaseToolStripMenuItem.Enabled = value;
+
+                if (!value)
+                {
+                    textBox1.Text = string.Empty;
+                }
+            }
+        }
+
         private DataSourceInfo DataSourceInfo
         {
             get { return _dsInfo; }
@@ -23,21 +38,20 @@ namespace EasyMap.Gui
                 _dsInfo = value;
                 if (_dsInfo == null)
                 {
-                    textBox1.Text = string.Empty;
-                    cSVFileToolStripMenuItem.Enabled = false;
+                    CanExportOrUpload = false;
                 }
                 else
                 {
                     textBox1.Text = _dsInfo.File.Filename;
-                    cSVFileToolStripMenuItem.Enabled = File.Exists(_dsInfo.File.Filename);
+                    CanExportOrUpload = File.Exists(_dsInfo.File.Filename);
                 }
             }
         }
 
-
         #endregion
 
         #region Constructor(s)
+
         public FrmMain()
         {
             InitializeComponent();
@@ -171,7 +185,7 @@ namespace EasyMap.Gui
                     // Temporarily disable the focus.
                     TopMost = false;
 
-                    Process.Start("explorer.exe", $"/select,\"{sfd.FileName}\"");
+                    FileExplorer.OpenWithHighlight(sfd.FileName);
                 }
                 catch (Exception ex)
                 {
@@ -190,7 +204,7 @@ namespace EasyMap.Gui
             var folder = Path.Combine(Application.StartupPath, "Example1");
             if (Directory.Exists(folder))
             {
-                Process.Start("explorer.exe", folder);
+                FileExplorer.Open(folder);
             }
             else
             {
@@ -200,21 +214,12 @@ namespace EasyMap.Gui
 
         private void visitOnGitHubToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("http://github.com/chatilaah/EasyMap");
+            Process.Start(Properties.Resources.RepoUrl);
         }
 
         private void excel972003FileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException("This functionality is not implemented yet.");
-        }
-
-        private void DoJob(int a)
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                System.Threading.Thread.Sleep(500);
-                System.Console.Write("Hello world!\n");
-            }
         }
 
         private void uploadToSQLDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -342,6 +347,7 @@ namespace EasyMap.Gui
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            _dsInfo?.Dispose();
             UserSettings.FrmMainSize = Size;
             UserSettings.IsMaximized = WindowState == FormWindowState.Maximized;
             UserSettings.FrmMainSourceColWidth = columnHeader1.Width;

@@ -59,5 +59,14 @@ namespace EasyMap.Gui.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://github.com/chatilaah/EasyMap.
+        /// </summary>
+        internal static string RepoUrl {
+            get {
+                return ResourceManager.GetString("RepoUrl", resourceCulture);
+            }
+        }
     }
 }
