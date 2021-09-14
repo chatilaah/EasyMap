@@ -7,6 +7,7 @@
     <Authors>Ahmad N. Chatila</Authors>
     <Product>EasyMap GUI</Product>
     <AssemblyName>EasyMap GUI</AssemblyName>
+    <Version>1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
