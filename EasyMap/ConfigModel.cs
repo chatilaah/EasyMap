@@ -169,17 +169,18 @@ namespace EasyMap
         {
             Filename = filePath;
 
-            using var excelFile = new ExcelFile(filePath);
-            var sheet = excelFile.Sheet[0];
+            // The config file is always an Excel file!
+            // Hence, no point of unifying the type of the instance.
+            using var emFile = new ExcelFile(filePath);
 
             // ==============================================================================
             //
             // Check the header fist and throw an exception if an error occurs.
             //
             //
-            for (int i = 0; i < sheet.Rows[0].ItemArray.Length; i++)
+            for (int i = 0; i < emFile.RowAt(0).Length; i++)
             {
-                if (!_formatHeaders[i].Equals(sheet.Rows[0].ItemArray[i].ToString().ToLower()))
+                if (!_formatHeaders[i].Equals(emFile.RowAt(0)[i].ToString().ToLower()))
                 {
                     throw new System.Exception("Headers don't match!");
                 }
@@ -190,12 +191,10 @@ namespace EasyMap
             // Begin storing config data
             //
             //
-            for (int i = 1; i < sheet.Rows.Count; i++)
+            for (int i = 1; i < emFile.RowCount; i++)
             {
-                DataRow row = sheet.Rows[i];
-
-                var settingName = row.ItemArray[SettingNameIndex].ToString().ToLower();
-                var settingValue = row.ItemArray[SettingValueIndex].ToString();
+                var settingName = emFile.RowAt(i)[SettingNameIndex].ToString().ToLower();
+                var settingValue = emFile.RowAt(i)[SettingValueIndex].ToString();
 
                 if (settingName.Equals(_formatSettings[0] /* ServerName */))
                 {
@@ -245,18 +244,18 @@ namespace EasyMap
             //
             //
             TranslateFields = new();
-            for (int i = 1; i < sheet.Rows.Count; i++)
+            for (int i = 1; i < emFile.RowCount; i++)
             {
-                DataRow row = sheet.Rows[i];
+                var r = emFile.RowAt(i);
 
-                var srcFieldName = row.ItemArray[SourceIndex].ToString();
+                var srcFieldName = r[SourceIndex].ToString();
 
                 if (string.IsNullOrEmpty(srcFieldName))
                 {
                     continue;
                 }
 
-                var dstFieldName = row.ItemArray[DestinationIndex].ToString();
+                var dstFieldName = r[DestinationIndex].ToString();
 
                 if (string.IsNullOrEmpty(dstFieldName))
                 {
@@ -266,7 +265,7 @@ namespace EasyMap
                 TranslateFields.Add(srcFieldName, new TranslateItem
                 {
                     Replacement = dstFieldName,
-                    Comment = row.ItemArray[Comments1Index].ToString()
+                    Comment = r[Comments1Index].ToString()
                 });
             }
 

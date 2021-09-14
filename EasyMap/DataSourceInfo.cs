@@ -10,18 +10,15 @@
 /// </summary>
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 
 namespace EasyMap
 {
     public class DataSourceInfo : IDisposable
     {
-        public readonly ExcelFile File;
+        public readonly EMFile File;
 
         private readonly ConfigModel _config;
-
-        private DataTableCollection Sheet => File.Sheet;
 
         #region Constructor(s)
 
@@ -30,7 +27,20 @@ namespace EasyMap
             Debug.Assert(config != null);
 
             _config = config;
-            File = new ExcelFile(sourceFileName);
+
+            if (sourceFileName.ToLower().EndsWith(FileFormatConstants.XlsxFileFormat) ||
+                sourceFileName.ToLower().EndsWith(FileFormatConstants.XlsFileFormat))
+            {
+                File = new ExcelFile(sourceFileName);
+            }
+            else if (sourceFileName.ToLower().EndsWith(FileFormatConstants.CsvFileFormat))
+            {
+                File = new CsvFile(sourceFileName);
+            }
+            else
+            {
+                throw new FormatException($"The specified file \"{sourceFileName}\" appears to be unhandled by the application. Alternatively, use Excel files or Comma-separated value files.");
+            }
         }
 
         #endregion
@@ -41,14 +51,14 @@ namespace EasyMap
             {
                 var avail = new List<string>();
 
-                if (Sheet[0].Rows[0] == null)
+                if (File.RowAt(0) == null)
                 {
                     return avail;
                 }
 
-                for (int i = 0; i < Sheet[0].Rows[0].ItemArray.Length; i++)
+                for (int i = 0; i < File.RowAt(0).Length; i++)
                 {
-                    var curr_i = Sheet[0].Rows[0].ItemArray[i];
+                    var curr_i = File.RowAt(0)[i];
 
                     if (curr_i == null)
                     {

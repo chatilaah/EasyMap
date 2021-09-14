@@ -102,7 +102,7 @@ namespace EasyMap.Gui
 
             var ofd = new OpenFileDialog
             {
-                Filter = "Excel Files|*.xls;*.xlsx"
+                Filter = "CSV Files|*.csv|Excel Files|*.xls;*.xlsx"
             };
 
             if (ofd.ShowDialog() != DialogResult.OK)

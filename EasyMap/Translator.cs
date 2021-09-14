@@ -48,8 +48,7 @@ namespace EasyMap
 
         public bool PrepareBuffer()
         {
-            var sheet = _dsInfo.File.Sheet[0];
-            int srcRowCount = sheet.Rows[0].ItemArray.Length;
+            int srcRowCount = _dsInfo.File.RowAt(0).Length;
 
             if (srcRowCount != _config.TranslateFields.Count)
             {
@@ -61,11 +60,11 @@ namespace EasyMap
 
             for (int i = 0; i < srcRowCount; i++)
             {
-                var len = sheet.Rows[i].ItemArray.Length;
+                var len = _dsInfo.File.RowAt(i).Length;
 
                 for (int j = 0; j < len; j++)
                 {
-                    var current = sheet.Rows[i].ItemArray[j].ToString();
+                    var current = _dsInfo.File.RowAt(i)[j].ToString();
 
                     Buffer += (i == 0) ?
                         $"{_config.TranslateFields[current].Replacement}" :
