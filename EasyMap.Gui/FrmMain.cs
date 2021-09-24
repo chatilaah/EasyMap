@@ -2,6 +2,8 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Management;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -25,7 +27,7 @@ namespace EasyMap.Gui
 
                 if (!value)
                 {
-                    textBox1.Text = string.Empty;
+                    //textBox1.Text = string.Empty;
                 }
             }
         }
@@ -42,7 +44,7 @@ namespace EasyMap.Gui
                 }
                 else
                 {
-                    textBox1.Text = _dsInfo.File.Filename;
+                    //textBox1.Text = _dsInfo.File.Filename;
                     CanExportOrUpload = File.Exists(_dsInfo.File.Filename);
                 }
             }
@@ -60,7 +62,8 @@ namespace EasyMap.Gui
 
             columnHeader1.Width = UserSettings.FrmMainSourceColWidth;
             columnHeader2.Width = UserSettings.FrmMainDestinationColWidth;
-            columnHeader3.Width = UserSettings.FrmMainCommentColWidth;
+            columnHeader3.Width = UserSettings.FrmMainDataTypeColWidth;
+            columnHeader4.Width = UserSettings.FrmMainCommentColWidth;
         }
 
         #endregion
@@ -87,12 +90,7 @@ namespace EasyMap.Gui
             LoadConfigFile(ofd.FileName);
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void btnBrowseFile_Click(object sender, EventArgs e)
+        private void openDataSourceFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Config == null)
             {
@@ -131,6 +129,16 @@ namespace EasyMap.Gui
 
                 j.BackColor = found ? System.Drawing.Color.LightGreen : System.Drawing.Color.Yellow;
             }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnBrowseFile_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void viewConfigToolStripMenuItem_Click(object sender, EventArgs e)
@@ -260,7 +268,15 @@ namespace EasyMap.Gui
                         Text = i.Key
                     };
 
+                    var dataType = i.Value.DataTypeInfo.DataType.ToString();
+
+                    if (i.Value.DataTypeInfo.Size != -1)
+                    {
+                        dataType = $"{dataType}({i.Value.DataTypeInfo.Size})";
+                    }
+
                     lvItem.SubItems.Add(i.Value.Replacement);
+                    lvItem.SubItems.Add(dataType);
                     lvItem.SubItems.Add(i.Value.Comment);
 
                     listView1.Items.Add(lvItem);

@@ -37,27 +37,32 @@ namespace EasyMap
             var dtStr = i1 != -1 ? rawValue.Substring(0, i1) : rawValue;
             DataType = new DataTypeDefs().DataTypes[dtStr];
 
-            if (!DataType.ShouldHaveSize())
+            if (DataType.ShouldHaveSize())
             {
-                Size = -1;
-            }
+                if (i1 != -1 && i2 == -1)
+                {
+                    throw new System.Exception($"Data type for '{rawValue}' is missing the enclosing character ')'");
+                }
+                else if (i1 == -1 && i2 != -1)
+                {
+                    throw new System.Exception($"Data type for '{rawValue}' is missing the trailing character '('");
+                }
 
-            if (i1 != -1 && i2 == -1)
-            {
-                throw new System.Exception($"Data type for '{rawValue}' is missing the enclosing character ')'");
-            }
-            else if (i1 == -1 && i2 != -1)
-            {
-                throw new System.Exception($"Data type for '{rawValue}' is missing the trailing character '('");
-            }
+                if (i2 - i1 > 0)
+                {
+                    i1 += 1;
+                    i2 = rawValue.Length - i2;
 
-            if (i2 - i1 > 0)
-            {
-                Size = Convert.ToInt32(rawValue.Substring(i1 + 1, rawValue.Length - i2 - 1));
+                    Size = Convert.ToInt32(rawValue[i1..^i2]);
+                }
+                else
+                {
+                    throw new System.Exception($"Size format of the field '{rawValue}' was not defined properly.");
+                }
             }
             else
             {
-                throw new System.Exception("Size format not defined properly.");
+                Size = -1;
             }
         }
     }

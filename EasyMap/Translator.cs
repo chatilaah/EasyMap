@@ -66,6 +66,20 @@ namespace EasyMap
                 {
                     var current = _dsInfo.File.RowAt(i)[j].ToString();
 
+                    if (i != 0)
+                    {
+                        var header = _dsInfo.File.RowAt(0)[j].ToString();
+                        switch (_config.TranslateFields[header].DataTypeInfo.DataType)
+                        {
+                            case DataType.Char:
+                            case DataType.NVarChar:
+                            case DataType.VarChar:
+                            case DataType.VarCharMax:
+                                current = $"'{current}'";
+                                break;
+                        }
+                    }
+
                     Buffer += (i == 0) ?
                         $"{_config.TranslateFields[current].Replacement}" :
                         $"{current}";
@@ -108,7 +122,6 @@ namespace EasyMap
                 throw new Exception(s.LastError);
             }
             System.Console.Write("ok.\n");
-
 
             int index = -1;
 

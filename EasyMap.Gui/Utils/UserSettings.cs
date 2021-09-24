@@ -21,6 +21,11 @@ namespace EasyMap.Gui.Utils
         /// </summary>
         public const int DefaultCommentColSize = 100;
 
+        /// <summary>
+        /// The default column header width for the "Data Type" column
+        /// </summary>
+        public const int DefaultDataTypeColSize = 70;
+
         #endregion
 
         #region Delegates
@@ -191,6 +196,28 @@ namespace EasyMap.Gui.Utils
                 }
 
                 Properties.Settings.Default.FrmMainCommentColWidth = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+
+        /// <summary>
+        /// Gets or sets the column header width of the "Data Type" column
+        /// </summary>
+        public static int FrmMainDataTypeColWidth
+        {
+            get
+            {
+                return Properties.Settings.Default.FrmMainDataTypeColWidth;
+            }
+            set
+            {
+                if (value < DefaultDataTypeColSize)
+                {
+                    value = DefaultDataTypeColSize;
+                }
+
+                Properties.Settings.Default.FrmMainDataTypeColWidth = value;
                 Properties.Settings.Default.Save();
             }
         }

@@ -96,13 +96,25 @@ namespace EasyMap.Gui.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        [global::System.Configuration.DefaultSettingValueAttribute("120")]
         public int FrmMainCommentColWidth {
             get {
                 return ((int)(this["FrmMainCommentColWidth"]));
             }
             set {
                 this["FrmMainCommentColWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("70")]
+        public int FrmMainDataTypeColWidth {
+            get {
+                return ((int)(this["FrmMainDataTypeColWidth"]));
+            }
+            set {
+                this["FrmMainDataTypeColWidth"] = value;
             }
         }
     }

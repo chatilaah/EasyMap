@@ -7,8 +7,12 @@
     <Authors>Ahmad N. Chatila</Authors>
     <Product>EasyMap GUI</Product>
     <AssemblyName>EasyMap GUI</AssemblyName>
-    <Version>1.1</Version>
+    <Version>1.2</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="5.0.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EasyMap.Console\EasyMap.Console.csproj" />

@@ -131,6 +131,7 @@ namespace EasyMap
         {
             "source",
             "destination",
+            "datatype",
             "comments",
             "settingname",
             "settingvalue",
