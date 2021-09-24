@@ -263,7 +263,7 @@ namespace EasyMap
                     continue;
                 }
 
-                var dataTypeName = row.ItemArray[DataTypeIndex].ToString();
+                var dataTypeName = r[DataTypeIndex].ToString();
 
                 if (string.IsNullOrEmpty(dataTypeName))
                 {
@@ -274,7 +274,7 @@ namespace EasyMap
                 {
                     Replacement = dstFieldName,
                     DataTypeInfo = new DataTypeModel(dataTypeName),
-                    Comment = row.ItemArray[Comments1Index].ToString()
+                    Comment = r[Comments1Index].ToString()
                 });
             }
 

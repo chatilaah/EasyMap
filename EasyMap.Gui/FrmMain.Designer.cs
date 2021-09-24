@@ -48,6 +48,7 @@ namespace EasyMap.Gui
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cSVFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excel972003FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uploadToSQLDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutEasyMapGUIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -60,7 +61,7 @@ namespace EasyMap.Gui
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            this.uploadToSQLDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,7 +74,7 @@ namespace EasyMap.Gui
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(446, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(542, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -205,6 +206,13 @@ namespace EasyMap.Gui
             this.excel972003FileToolStripMenuItem.Text = "Excel 97-2003 File...";
             this.excel972003FileToolStripMenuItem.Click += new System.EventHandler(this.excel972003FileToolStripMenuItem_Click);
             // 
+            // uploadToSQLDatabaseToolStripMenuItem
+            // 
+            this.uploadToSQLDatabaseToolStripMenuItem.Name = "uploadToSQLDatabaseToolStripMenuItem";
+            this.uploadToSQLDatabaseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.uploadToSQLDatabaseToolStripMenuItem.Text = "Upload to SQL Database";
+            this.uploadToSQLDatabaseToolStripMenuItem.Click += new System.EventHandler(this.uploadToSQLDatabaseToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -271,13 +279,14 @@ namespace EasyMap.Gui
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
-            this.columnHeader3});
+            this.columnHeader3,
+            this.columnHeader4});
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(12, 96);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(422, 263);
+            this.listView1.Size = new System.Drawing.Size(518, 315);
             this.listView1.TabIndex = 9;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -294,21 +303,19 @@ namespace EasyMap.Gui
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "Comment";
+            this.columnHeader3.Text = "Data Type";
             this.columnHeader3.Width = 100;
             // 
-            // uploadToSQLDatabaseToolStripMenuItem
+            // columnHeader4
             // 
-            this.uploadToSQLDatabaseToolStripMenuItem.Name = "uploadToSQLDatabaseToolStripMenuItem";
-            this.uploadToSQLDatabaseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.uploadToSQLDatabaseToolStripMenuItem.Text = "Upload to SQL Database";
-            this.uploadToSQLDatabaseToolStripMenuItem.Click += new System.EventHandler(this.uploadToSQLDatabaseToolStripMenuItem_Click);
+            this.columnHeader4.Text = "Comments";
+            this.columnHeader4.Width = 100;
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(446, 371);
+            this.ClientSize = new System.Drawing.Size(542, 423);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnBrowseFile);
@@ -362,6 +369,7 @@ namespace EasyMap.Gui
         private System.Windows.Forms.ToolStripMenuItem visitOnGitHubToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excel972003FileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uploadToSQLDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
     }
 }
 
