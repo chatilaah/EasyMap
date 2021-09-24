@@ -18,6 +18,11 @@ namespace EasyMap
         public string Replacement { get; set; }
 
         /// <summary>
+        /// Data type info.
+        /// </summary>
+        public DataTypeModel DataTypeInfo { get; set; }
+
+        /// <summary>
         /// User comment
         /// </summary>
         public string Comment { get; set; }

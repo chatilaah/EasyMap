@@ -157,10 +157,11 @@ namespace EasyMap
         /// </summary>
         const int SourceIndex = 0;
         const int DestinationIndex = 1;
-        const int Comments1Index = 2;
-        const int SettingNameIndex = 3;
-        const int SettingValueIndex = 4;
-        const int Comments2Index = 5;
+        const int DataTypeIndex = 2;
+        const int Comments1Index = 3;
+        const int SettingNameIndex = 4;
+        const int SettingValueIndex = 5;
+        const int Comments2Index = 6;
 
 
         #region Constructor(s)
@@ -262,10 +263,18 @@ namespace EasyMap
                     continue;
                 }
 
+                var dataTypeName = row.ItemArray[DataTypeIndex].ToString();
+
+                if (string.IsNullOrEmpty(dataTypeName))
+                {
+                    continue;
+                }
+
                 TranslateFields.Add(srcFieldName, new TranslateItem
                 {
                     Replacement = dstFieldName,
-                    Comment = r[Comments1Index].ToString()
+                    DataTypeInfo = new DataTypeModel(dataTypeName),
+                    Comment = row.ItemArray[Comments1Index].ToString()
                 });
             }
 

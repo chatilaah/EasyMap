@@ -75,5 +75,20 @@ namespace EasyMap
 
             return str;
         }
+
+        public static bool ShouldHaveSize(this DataType dt)
+        {
+            switch (dt)
+            {
+                case DataType.Char:
+                case DataType.NVarChar:
+                case DataType.VarChar:
+                    return true;
+                default:
+                    break;
+            }
+
+            return false;
+        }
     }
 }
